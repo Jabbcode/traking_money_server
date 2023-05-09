@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountsController extends Controller
 {
@@ -12,6 +13,14 @@ class AccountsController extends Controller
     {
         $accounts = Account::with(['User', 'Transactions'])->get();
         return response()->json($accounts);
+    }
+
+    public function getAccount()
+    {
+        $user_id = Auth::user()->id;
+        $account = Account::with(['User'])->find($user_id);
+
+        return response()->json($account);
     }
 
     public function show($id)

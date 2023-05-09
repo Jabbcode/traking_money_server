@@ -28,14 +28,17 @@ Route::post('auth/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::get('auth/verify-authenticated', [AuthController::class, 'verifyAuthentication']);
 
     Route::get('users', [AuthController::class, 'Users']);
 
     Route::resource('categories', CategoryController::class);
 
     Route::resource('accounts', AccountsController::class);
+    Route::get('account', [AccountsController::class, 'getAccount']);
     Route::delete('accounts/{account_id}/user/{user_id}', [AccountsController::class, 'ToUnsubscribe']);
 
     Route::resource('transactions', TransactionController::class);
+    Route::get('transactions-for-user', [TransactionController::class, 'getTransactionsForUser']);
     Route::get('/transactions/type_transaction/{type_transaction_id}', [TransactionController::class, 'getForCategory']);
 });

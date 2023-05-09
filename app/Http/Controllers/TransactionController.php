@@ -17,6 +17,14 @@ class TransactionController extends Controller
         return response()->json($transactions);
     }
 
+    public function getTransactionsForUser()
+    {
+        $user_id = Auth::user()->id;
+        $transactions = Transaction::with(['Type_transaction', 'Category'])->where('user_id', $user_id)->get();
+
+        return response()->json($transactions);
+    }
+
     public function show($id)
     {
         $transaction = Transaction::with(['User', 'Type_transaction'])->find($id);

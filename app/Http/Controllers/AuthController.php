@@ -73,4 +73,9 @@ class AuthController extends Controller
             'message' => 'Sesión cerrada exitosamente',
         ]);
     }
+
+    public function verifyAuthentication()
+    {
+        return response()->json(['message' => 'Authenticated', 'user' => auth()->user()], 200);
+    }
 }
